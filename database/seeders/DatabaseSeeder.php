@@ -15,11 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        Character::create([
+            'nom' => 'Monkey D. Luffy',
+            'titre' => 'Chapeau de Paille',
+            'origine' => 'Village de Fuchsia (East Blue)',
+            'capacites' => [
+                'fruit' => 'Hito Hito no Mi (Nika)',
+                'haki' => ['Rois', 'Armement', 'Observation']
+            ],
+            'avancement' => 'Empereur des Mers (Yonko)',
+            'prime' => 3000000000
         ]);
-    }
+}
 }
