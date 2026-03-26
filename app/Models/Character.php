@@ -9,6 +9,6 @@ class Character extends Model
     protected $fillable = ['nom', 'titre', 'origine', 'capacites', 'avancement', 'prime', 'image_url'];
 
     protected $casts = [
-        'capacites' => 'array', // Très important pour manipuler les pouvoirs facilement
+        'capacites' => 'array',
     ];
 }
