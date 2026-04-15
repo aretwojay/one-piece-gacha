@@ -16,14 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $personnages = [
+        $Characters = [
             [
                 'nom' => 'Monkey D. Luffy',
                 'titre' => 'Chapeau de Paille',
                 'origine' => 'Village de Fuchsia (East Blue)',
                 'capacites' => ['fruit' => 'Hito Hito no Mi (Nika)', 'haki' => ['Rois', 'Armement', 'Observation']],
                 'avancement' => 'Empereur (Yonko), actuellement sur Egghead.',
-                'prime' => 3000000000
+                'prime' => 3000000000,
+                'image_url' => https://i.redd.it/fcnh4ty49i791.png
             ],
             [
                 'nom' => 'Roronoa Zoro',
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
                 'capacites' => ['fruit' => 'Aucun', 'haki' => ['Rois', 'Armement', 'Observation']],
                 'avancement' => 'Second de Luffy, a vaincu King à Onigashima.',
                 'prime' => 1111000000
+                'image_url' => https://i.redd.it/fcnh4ty49i791.png
             ],
             [
                 'nom' => 'Shanks',
@@ -40,6 +42,7 @@ class DatabaseSeeder extends Seeder
                 'capacites' => ['fruit' => 'Aucun', 'haki' => ['Rois (Maîtrise absolue)', 'Armement', 'Observation']],
                 'avancement' => 'Empereur, protecteur d\'Elbaf.',
                 'prime' => 4048900000
+                'image_url' => https://i.redd.it/fcnh4ty49i791.png
             ],
             [
                 'nom' => 'Marshall D. Teach',
@@ -48,6 +51,7 @@ class DatabaseSeeder extends Seeder
                 'capacites' => ['fruit' => ['Yami Yami no Mi', 'Gura Gura no Mi'], 'haki' => ['Armement', 'Observation']],
                 'avancement' => 'Empereur, basé sur l\'île de la Ruche.',
                 'prime' => 3996000000
+                'image_url' => https://i.redd.it/fcnh4ty49i791.png
             ],
             [
                 'nom' => 'Trafalgar D. Water Law',
@@ -56,6 +60,7 @@ class DatabaseSeeder extends Seeder
                 'capacites' => ['fruit' => 'Ope Ope no Mi (Éveil)', 'haki' => ['Armement', 'Observation']],
                 'avancement' => 'Ancien Grand Corsaire, a vaincu Big Mom avec Kid.',
                 'prime' => 3000000000
+                'image_url' => https://i.redd.it/fcnh4ty49i791.png
             ],
             [
                 'nom' => 'Monkey D. Dragon',
@@ -64,6 +69,7 @@ class DatabaseSeeder extends Seeder
                 'capacites' => ['fruit' => 'Inconnu (Lien avec le vent)', 'haki' => ['Rois', 'Armement', 'Observation']],
                 'avancement' => 'Chef de l\'Armée Révolutionnaire.',
                 'prime' => 0 // Inconnue mais colossale
+                'image_url' => https://i.redd.it/fcnh4ty49i791.png
             ],
             [
                 'nom' => 'Sakazuki',
@@ -71,7 +77,8 @@ class DatabaseSeeder extends Seeder
                 'origine' => 'North Blue',
                 'capacites' => ['fruit' => 'Magu Magu no Mi', 'haki' => ['Armement', 'Observation']],
                 'avancement' => 'Amiral en Chef de la Marine.',
-                'prime' => 0 // Pas de prime (Marine)
+                'prime' => 0
+                'image_url' => https://i.redd.it/fcnh4ty49i791.png
             ],
             [
                 'nom' => 'BuggY',
@@ -80,11 +87,12 @@ class DatabaseSeeder extends Seeder
                 'capacites' => ['fruit' => 'Bara Bara no Mi', 'haki' => ['Aucun']],
                 'avancement' => 'Empereur (Yonko) par accident, leader de Cross Guild.',
                 'prime' => 3189000000
+                'image_url' => https://i.redd.it/fcnh4ty49i791.png
             ]
         ];
 
-        foreach ($personnages as $p) {
-            Character::create($p);
-        }
+        foreach ($characters as $character) {
+                \App\Models\Character::create($character);
+            }
     }
 }
