@@ -42,7 +42,24 @@ class Character extends Model
     protected static function booted(): void
     {
         static::creating(function (Character $character) {
-            $bounty = intval(str_replace(',', '', $character->bounty)) ?? 0;
+            $bounty = intval(preg_replace('/[^0-9]/', '', strtolower(str_replace(',', '', $character->bounty)))) ?? 0;
+
+            if ($character->bounty === "Unknown") {
+                $character->rarity = 'Legendary';
+            }
+            
+            if (count_chars($character->bounty, 1)['★'] ?? 0 > 4) {
+                
+                $character->rarity = 'Legendary';
+            }
+            else if (count_chars($character->bounty, 1)['★'] ?? 0 > 2) {
+                $character->rarity = 'Epic';
+            }
+            else if (count_chars($character->bounty, 1)['★'] ?? 0 > 0) {
+                echo $character->bounty . PHP_EOL;
+                $character->rarity = 'Rare';
+            }
+      
 
             if (is_null($character->hp)) {
                 $character->hp = $bounty > 1000000000 ? fake()->numberBetween(10000, 50000) : ($bounty > 100000000 ? fake()->numberBetween(5000, 10000) : fake()->numberBetween(1000, 5000));

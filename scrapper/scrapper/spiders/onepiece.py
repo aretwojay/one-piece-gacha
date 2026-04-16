@@ -35,6 +35,7 @@ class OnepieceSpider(scrapy.Spider):
         all_links = response.css("td:nth-child(2) a::attr(href)").getall()
         for link in all_links:
             yield response.follow(link, callback=self.parse_character, headers=self.HEADERS)
+            
         
 
     def format_wiki_list(self, arr: list[str]) -> list[str]:
@@ -50,7 +51,7 @@ class OnepieceSpider(scrapy.Spider):
     
     def parse_character(self, response: Response):
         image = response.css("img.pi-image-thumbnail::attr(src)").get()
-        english_name = response.css("div[data-source='ename'] div::text").get()
+        english_name = response.css("h2[data-source='name']::text").get()
         romaji_name = response.css("div[data-source='rname'] div i::text").get()
         japanese_name = response.css("div[data-source='jname'] div *::text").getall()
         japanese_name = "".join([name.strip() for name in japanese_name if not name.startswith("(")])
@@ -79,7 +80,9 @@ class OnepieceSpider(scrapy.Spider):
 
         devil_fruit = response.css("div[data-source='dfname'] div *::text").get()
 
-        bounty = response.css("div[data-source='bounty'] div *::text").get()
+        bounty = response.css("div[data-source='bounty'] div *::text").getall()
+        bounty = self.format_wiki_list(bounty)[-1] if bounty else None
+        bounty = bounty.split(" ")[0] if bounty and bounty[0] in "0123456789" else bounty
 
         yield {
             "image_url": image,

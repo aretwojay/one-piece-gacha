@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Character; // Très important : on importe le modèle
-use Illuminate\Http\Request;
+use App\Models\Character;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class GachaController extends Controller
 {
-    /**
-     * Logique pour tirer un personnage aléatoire
-     */
-    public function pull()
+    public function dashboard(): View
     {
-        for ($i = 1; $i <= 10; $i++) {
-            $personnage = Character::inRandomOrder()->first();
+        return view('gacha.dashboard');
+    }
 
-            if (!$personnage) {
-                return "Erreur : Aucun personnage n'est disponible dans la base de données.";
-            }
+    public function pull(): View|RedirectResponse
+    {
+        $character = Character::query()->inRandomOrder()->first();
+
+        if (! $character) {
+            return redirect()
+                ->route('dashboard')
+                ->with('error', 'Aucun personnage n\'est disponible dans la base de donnees.');
         }
 
-        // 3. On envoie le personnage à une "vue" (le fichier HTML)
-        // On crée un dossier 'gacha' dans resources/views et un fichier 'result.blade.php'
         return view('gacha.result', [
-            'character' => $personnage
+            'character' => $character,
         ]);
     }
 }
