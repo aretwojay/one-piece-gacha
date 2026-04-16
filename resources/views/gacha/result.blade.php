@@ -7,6 +7,9 @@
         $image = $character->image_url ? (string) $character->image_url : null;
         $rarityLabel = $character->rarity ?: 'Inconnue';
         $rarityKey = strtolower((string) $rarityLabel);
+        $pullsRemaining = max(0, (int) ($pullsRemaining ?? 0));
+        $pullsLimit = max(1, (int) ($pullsLimit ?? 10));
+        $retryAfterSeconds = max(0, (int) ($retryAfterSeconds ?? 0));
 
         [$rarityFrameClass, $rarityBadgeClass, $rarityIcon] = match ($rarityKey) {
             'legendary' => [
@@ -30,6 +33,16 @@
                 '•',
             ],
         };
+
+        [$pullsFrameClass, $pullsBadgeClass] = $pullsRemaining > 0
+            ? [
+                'border-amber-200 bg-linear-to-br from-amber-100/70 via-white to-slate-100 dark:border-amber-300/40 dark:from-amber-500/25 dark:via-slate-900 dark:to-slate-950',
+                'bg-amber-500/20 text-amber-700 ring-1 ring-amber-500/50 dark:bg-amber-300/20 dark:text-amber-100 dark:ring-amber-300/50',
+            ]
+            : [
+                'border-rose-200 bg-linear-to-br from-rose-100/70 via-white to-slate-100 dark:border-rose-300/40 dark:from-rose-500/25 dark:via-slate-900 dark:to-slate-950',
+                'bg-rose-500/20 text-rose-700 ring-1 ring-rose-500/50 dark:bg-rose-300/20 dark:text-rose-100 dark:ring-rose-300/50',
+            ];
     @endphp
 
     <section class="grid gap-6 lg:grid-cols-3">
@@ -64,6 +77,28 @@
                                 </dd>
                             </div>
                         </div>
+                        <div class="overflow-hidden rounded-xl border p-0.5 transition-colors duration-300 {{ $pullsFrameClass }}">
+                            <div class="rounded-[10px] bg-white/95 p-3 transition-colors duration-300 dark:bg-slate-900/95">
+                                <div class="flex items-center justify-between gap-2">
+                                    <dt class="text-slate-500 transition-colors duration-300 dark:text-slate-200">Tirages restants</dt>
+                                    <span class="rounded-full px-2 py-0.5 text-[11px] font-black uppercase tracking-wide {{ $pullsBadgeClass }}">
+                                        {{ $pullsRemaining }} / {{ $pullsLimit }}
+                                    </span>
+                                </div>
+                                <dd class="mt-2 font-black text-slate-900 transition-colors duration-300 dark:text-white">
+                                    @if ($pullsRemaining > 0)
+                                        {{ $pullsRemaining }} tirage(s) disponible(s)
+                                    @else
+                                        Limite atteinte
+                                    @endif
+                                </dd>
+                                @if ($retryAfterSeconds > 0)
+                                    <p class="mt-1 text-xs font-medium text-rose-600 transition-colors duration-300 dark:text-rose-200">
+                                        Prochain tirage dans {{ (int) ceil($retryAfterSeconds / 60) }} minute(s).
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
                         <div class="rounded-xl border border-slate-100 bg-slate-50 p-3 transition-colors duration-300 dark:border-slate-700 dark:bg-slate-800">
                             <dt class="text-slate-500 transition-colors duration-300 dark:text-slate-200">Prime</dt>
                             <dd class="mt-1 font-bold text-slate-900 transition-colors duration-300 dark:text-white">{{ $character->bounty ?: 'Non renseignee' }}</dd>
@@ -79,9 +114,15 @@
                     </dl>
 
                     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <a href="{{ route('gacha.pull') }}" class="inline-flex justify-center rounded-xl bg-amber-500 px-5 py-3 font-bold text-white shadow-lg shadow-amber-500/30 transition duration-200 hover:bg-amber-600 hover:shadow-amber-600/40 active:scale-95 dark:bg-amber-400 dark:text-slate-900 dark:shadow-amber-500/30 dark:hover:bg-amber-300 dark:hover:shadow-amber-400/50 sm:order-first">
-                            🎯 Nouveau tirage
-                        </a>
+                        @if ($pullsRemaining > 0)
+                            <a href="{{ route('gacha.pull-animation') }}" class="inline-flex justify-center rounded-xl bg-amber-500 px-5 py-3 font-bold text-white shadow-lg shadow-amber-500/30 transition duration-200 hover:bg-amber-600 hover:shadow-amber-600/40 active:scale-95 dark:bg-amber-400 dark:text-slate-900 dark:shadow-amber-500/30 dark:hover:bg-amber-300 dark:hover:shadow-amber-400/50 sm:order-first">
+                                🎯 Nouveau tirage
+                            </a>
+                        @else
+                            <span class="inline-flex cursor-not-allowed justify-center rounded-xl bg-rose-400 px-5 py-3 font-bold text-white opacity-90 shadow-lg shadow-rose-500/20 dark:bg-rose-500/70 sm:order-first">
+                                ⏳ Limite atteinte
+                            </span>
+                        @endif
                         <a href="{{ route('dashboard') }}" class="inline-flex justify-center rounded-xl border-2 border-slate-200 bg-white px-5 py-3 font-bold text-slate-700 shadow-sm transition duration-200 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-500 dark:bg-transparent dark:text-slate-100 dark:shadow-none dark:hover:border-slate-300 dark:hover:bg-slate-700">
                             ← Retour dashboard
                         </a>

@@ -24,6 +24,10 @@ Route::middleware('guest')->group(function (): void {
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', [GachaController::class, 'dashboard'])->name('dashboard');
+    Route::get('/tirage/animation', [GachaController::class, 'showPullAnimation'])->name('gacha.pull-animation');
+    Route::get('/tirage/fetch-character', [GachaController::class, 'fetchCharacter'])
+        ->middleware('throttle:gacha-pulls')
+        ->name('gacha.fetch-character');
     Route::get('/tirage', [GachaController::class, 'pull'])->name('gacha.pull');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

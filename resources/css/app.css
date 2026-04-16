@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,6 +6,222 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
+
+@keyframes gacha-card-flip {
+    0% {
+        transform: rotateY(0deg) rotateZ(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotateY(720deg) rotateZ(-6deg) scale(1.04);
+    }
+
+    100% {
+        transform: rotateY(1440deg) rotateZ(0deg) scale(1);
+    }
+}
+
+@keyframes gacha-shine {
+    0% {
+        transform: translateX(-135%) skewX(-22deg);
+    }
+
+    100% {
+        transform: translateX(145%) skewX(-22deg);
+    }
+}
+
+@keyframes gacha-glow {
+    0%,
+    100% {
+        filter: drop-shadow(
+            0 18px 35px var(--gacha-glow-low, rgb(251 191 36 / 0.2))
+        );
+    }
+
+    50% {
+        filter: drop-shadow(
+            0 26px 42px var(--gacha-glow-high, rgb(251 191 36 / 0.42))
+        );
+    }
+}
+
+@keyframes gacha-rarity-burst {
+    0% {
+        opacity: 0;
+        transform: scale(0.75);
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.28);
+    }
+}
+
+@keyframes gacha-rarity-text-pop {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.96);
+        letter-spacing: 0.22em;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        letter-spacing: 0.14em;
+    }
+}
+
+@keyframes gacha-dot {
+    0%,
+    80%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.3;
+    }
+
+    40% {
+        transform: translateY(-2px);
+        opacity: 1;
+    }
+}
+
+@layer components {
+    .gacha-pull-card {
+        perspective: 1000px;
+        animation: gacha-glow 2s ease-in-out infinite;
+        --gacha-glow-low: rgb(251 191 36 / 0.2);
+        --gacha-glow-high: rgb(251 191 36 / 0.42);
+    }
+
+    .gacha-pull-card-inner {
+        position: relative;
+        height: 20rem;
+        width: 14rem;
+        transform-style: preserve-3d;
+        animation: gacha-card-flip 2.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+            infinite;
+    }
+
+    .gacha-pull-card-face {
+        position: absolute;
+        inset: 0;
+        border-radius: 1rem;
+        backface-visibility: hidden;
+        overflow: hidden;
+    }
+
+    .gacha-pull-card-back {
+        transform: rotateY(180deg);
+    }
+
+    .gacha-pull-card-shine {
+        position: absolute;
+        inset: -30% -50%;
+        background: linear-gradient(
+            110deg,
+            rgb(255 255 255 / 0),
+            rgb(255 255 255 / 0.45),
+            rgb(255 255 255 / 0)
+        );
+        animation: gacha-shine 1.6s linear infinite;
+        pointer-events: none;
+    }
+
+    .gacha-loading-dot {
+        display: inline-block;
+        animation: gacha-dot 1s ease-in-out infinite;
+    }
+
+    .gacha-loading-dot:nth-child(2) {
+        animation-delay: 0.15s;
+    }
+
+    .gacha-loading-dot:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .gacha-rarity-burst {
+        position: absolute;
+        inset: -1rem;
+        border-radius: 1.35rem;
+        opacity: 0;
+        pointer-events: none;
+        mix-blend-mode: screen;
+    }
+
+    .gacha-rarity-burst-active {
+        animation: gacha-rarity-burst 0.85s ease-out both;
+    }
+
+    .gacha-rarity-text-pop {
+        animation: gacha-rarity-text-pop 0.45s ease-out both;
+    }
+
+    .gacha-rarity-rare .gacha-pull-card {
+        --gacha-glow-low: rgb(16 185 129 / 0.24);
+        --gacha-glow-high: rgb(20 184 166 / 0.5);
+    }
+
+    .gacha-rarity-rare .gacha-pull-card-inner {
+        animation-duration: 1.85s;
+    }
+
+    .gacha-rarity-rare .gacha-rarity-burst {
+        background: radial-gradient(
+            circle,
+            rgb(16 185 129 / 0.6) 0%,
+            rgb(20 184 166 / 0.34) 45%,
+            transparent 74%
+        );
+    }
+
+    .gacha-rarity-epic .gacha-pull-card {
+        --gacha-glow-low: rgb(34 211 238 / 0.28);
+        --gacha-glow-high: rgb(59 130 246 / 0.58);
+    }
+
+    .gacha-rarity-epic .gacha-pull-card-inner {
+        animation-duration: 1.55s;
+    }
+
+    .gacha-rarity-epic .gacha-rarity-burst {
+        background: radial-gradient(
+            circle,
+            rgb(34 211 238 / 0.65) 0%,
+            rgb(59 130 246 / 0.35) 45%,
+            transparent 74%
+        );
+    }
+
+    .gacha-rarity-legendary .gacha-pull-card {
+        --gacha-glow-low: rgb(251 191 36 / 0.32);
+        --gacha-glow-high: rgb(249 115 22 / 0.62);
+    }
+
+    .gacha-rarity-legendary .gacha-pull-card-inner {
+        animation-duration: 1.2s;
+    }
+
+    .gacha-rarity-legendary .gacha-pull-card-shine {
+        animation-duration: 0.75s;
+    }
+
+    .gacha-rarity-legendary .gacha-rarity-burst {
+        background: radial-gradient(
+            circle,
+            rgb(250 204 21 / 0.72) 0%,
+            rgb(249 115 22 / 0.38) 45%,
+            transparent 74%
+        );
+    }
 }
