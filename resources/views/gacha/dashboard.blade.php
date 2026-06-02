@@ -10,9 +10,14 @@
             <p class="mt-4 max-w-2xl leading-relaxed text-slate-600 transition-colors duration-300 dark:text-slate-100">
                 Lance un tirage et decouvre un nouveau personnage de One Piece pour renforcer ton equipage. Plus tu tires, plus tu as de chances de croiser les legendes !
             </p>
-            <a href="{{ route('gacha.pull-animation') }}" class="mt-8 inline-flex items-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 font-bold text-white shadow-lg shadow-amber-500/30 transition duration-200 hover:bg-amber-600 hover:shadow-amber-600/40 active:scale-95 dark:bg-amber-400 dark:text-slate-900 dark:shadow-amber-500/40 dark:hover:bg-amber-300 dark:hover:shadow-amber-400/60">
-                🎯 Lancer un tirage
-            </a>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a href="{{ route('gacha.pull-animation') }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 font-bold text-white shadow-lg shadow-amber-500/30 transition duration-200 hover:bg-amber-600 hover:shadow-amber-600/40 active:scale-95 dark:bg-amber-400 dark:text-slate-900 dark:shadow-amber-500/40 dark:hover:bg-amber-300 dark:hover:shadow-amber-400/60">
+                    🎯 Lancer un tirage
+                </a>
+                <a href="{{ route('characters.index') }}" class="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-slate-200 bg-white px-6 py-3.5 font-bold text-slate-700 shadow-sm transition duration-200 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-500 dark:bg-transparent dark:text-slate-100 dark:shadow-none dark:hover:border-slate-300 dark:hover:bg-slate-700">
+                    📚 Explorer les personnages
+                </a>
+            </div>
         </article>
 
         <aside class="rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/50 transition-colors duration-300 dark:border-slate-600 dark:bg-slate-900 dark:shadow-slate-950/50">

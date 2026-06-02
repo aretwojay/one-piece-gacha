@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\GachaController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,8 @@ Route::middleware('guest')->group(function (): void {
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', [GachaController::class, 'dashboard'])->name('dashboard');
+    Route::get('/characters', [CharacterController::class, 'catalog'])->name('characters.index');
+    Route::get('/characters/{character}', [CharacterController::class, 'details'])->name('characters.show');
     Route::get('/tirage/animation', [GachaController::class, 'showPullAnimation'])->name('gacha.pull-animation');
     Route::get('/tirage/fetch-character', [GachaController::class, 'fetchCharacter'])
         ->middleware('throttle:gacha-pulls')
