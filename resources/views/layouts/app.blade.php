@@ -20,8 +20,11 @@
 
                 <nav class="flex items-center gap-3 text-xs sm:gap-4 sm:text-sm">
                     @auth
-                        <a href="{{ route('characters.index') }}" class="rounded-md border px-3 py-1.5 font-medium transition duration-200 {{ request()->routeIs('characters.*') ? 'border-amber-500/50 bg-amber-50 text-amber-700 hover:bg-amber-100 hover:text-amber-800 dark:border-amber-300/50 dark:bg-amber-400/20 dark:text-amber-200 dark:hover:bg-amber-300/30 dark:hover:text-amber-100' : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-500 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 dark:hover:text-white' }}">
+                        <a href="{{ route('characters.index') }}" class="rounded-md border px-3 py-1.5 font-medium transition duration-200 {{ request()->routeIs('characters.index', 'characters.show') ? 'border-amber-500/50 bg-amber-50 text-amber-700 hover:bg-amber-100 hover:text-amber-800 dark:border-amber-300/50 dark:bg-amber-400/20 dark:text-amber-200 dark:hover:bg-amber-300/30 dark:hover:text-amber-100' : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-500 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 dark:hover:text-white' }}">
                             Personnages
+                        </a>
+                        <a href="{{ route('user.characters') }}" class="rounded-md border px-3 py-1.5 font-medium transition duration-200 {{ request()->routeIs('user.characters') ? 'border-amber-500/50 bg-amber-50 text-amber-700 hover:bg-amber-100 hover:text-amber-800 dark:border-amber-300/50 dark:bg-amber-400/20 dark:text-amber-200 dark:hover:bg-amber-300/30 dark:hover:text-amber-100' : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-500 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 dark:hover:text-white' }}">
+                            Mes Cartes
                         </a>
                         <span class="hidden font-medium text-slate-600 transition-colors duration-300 dark:text-slate-100 sm:inline">{{ auth()->user()->name }}</span>
                         <form method="POST" action="{{ route('logout') }}">

@@ -25,6 +25,8 @@ Route::middleware('guest')->group(function (): void {
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', [GachaController::class, 'dashboard'])->name('dashboard');
+    Route::get('/my-characters', [CharacterController::class, 'inventory'])->name('user.characters');
+    Route::post('/my-characters/{character}/claim', [CharacterController::class, 'claim'])->name('gacha.claim');
     Route::get('/characters', [CharacterController::class, 'catalog'])->name('characters.index');
     Route::get('/characters/{character}', [CharacterController::class, 'details'])->name('characters.show');
     Route::get('/tirage/animation', [GachaController::class, 'showPullAnimation'])->name('gacha.pull-animation');

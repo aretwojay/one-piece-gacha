@@ -113,18 +113,24 @@
                         </div>
                     </dl>
 
-                    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                    <div class="mt-8 flex flex-col flex-wrap gap-3 sm:flex-row">
+                        <form method="POST" action="{{ route('gacha.claim', $character) }}" class="flex w-full sm:w-auto sm:order-first">
+                            @csrf
+                            <button type="submit" class="inline-flex w-full cursor-pointer justify-center rounded-xl bg-emerald-500 px-5 py-3 font-bold text-white shadow-lg shadow-emerald-500/30 transition duration-200 hover:bg-emerald-600 active:scale-95 sm:w-auto">
+                                ✨ Réclamer cette carte
+                            </button>
+                        </form>
                         @if ($pullsRemaining > 0)
-                            <a href="{{ route('gacha.pull-animation') }}" class="inline-flex justify-center rounded-xl bg-amber-500 px-5 py-3 font-bold text-white shadow-lg shadow-amber-500/30 transition duration-200 hover:bg-amber-600 hover:shadow-amber-600/40 active:scale-95 dark:bg-amber-400 dark:text-slate-900 dark:shadow-amber-500/30 dark:hover:bg-amber-300 dark:hover:shadow-amber-400/50 sm:order-first">
+                            <a href="{{ route('gacha.pull-animation') }}" class="inline-flex w-full cursor-pointer justify-center rounded-xl border-2 border-slate-200 bg-white px-5 py-3 font-bold text-slate-700 shadow-sm transition duration-200 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-500 dark:bg-transparent dark:text-slate-100 dark:shadow-none dark:hover:border-slate-300 dark:hover:bg-slate-700 sm:w-auto">
                                 🎯 Nouveau tirage
                             </a>
                         @else
-                            <span class="inline-flex cursor-not-allowed justify-center rounded-xl bg-rose-400 px-5 py-3 font-bold text-white opacity-90 shadow-lg shadow-rose-500/20 dark:bg-rose-500/70 sm:order-first">
+                            <span class="inline-flex w-full cursor-not-allowed justify-center rounded-xl border-2 border-rose-200 bg-rose-50 px-5 py-3 font-bold text-rose-500 opacity-90 shadow-sm dark:border-rose-800 dark:bg-rose-900/30 dark:text-rose-400 sm:w-auto">
                                 ⏳ Limite atteinte
                             </span>
                         @endif
-                        <a href="{{ route('dashboard') }}" class="inline-flex justify-center rounded-xl border-2 border-slate-200 bg-white px-5 py-3 font-bold text-slate-700 shadow-sm transition duration-200 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-500 dark:bg-transparent dark:text-slate-100 dark:shadow-none dark:hover:border-slate-300 dark:hover:bg-slate-700">
-                            ← Retour dashboard
+                        <a href="{{ route('dashboard') }}" class="inline-flex w-full cursor-pointer justify-center rounded-xl border-2 border-slate-200 bg-white px-5 py-3 font-bold text-slate-700 shadow-sm transition duration-200 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-500 dark:bg-transparent dark:text-slate-100 dark:shadow-none dark:hover:border-slate-300 dark:hover:bg-slate-700 sm:w-auto">
+                            ← Dashboard
                         </a>
                     </div>
                 </div>

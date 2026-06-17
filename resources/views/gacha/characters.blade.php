@@ -66,33 +66,48 @@
 
 @section('content')
     <section class="space-y-6">
-        <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-200/60 transition-colors duration-300 dark:border-slate-700 dark:bg-slate-900 dark:shadow-none">
-            <div class="relative overflow-hidden px-6 py-8 sm:px-8">
-                <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.24),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(34,211,238,0.14),transparent_30%)] dark:bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.18),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(34,211,238,0.08),transparent_30%)]"></div>
-
-                <div class="relative grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_320px] lg:items-end">
-                    <div>
-                        <p class="text-xs font-black uppercase tracking-[0.28em] text-amber-600 transition-colors duration-300 dark:text-amber-300">Bibliotheque gacha</p>
-                        <h1 class="mt-3 text-3xl font-black tracking-tight text-slate-900 transition-colors duration-300 dark:text-white sm:text-5xl">
-                            Tous les personnages, filtres et tri rapides.
+        <div class="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/60 shadow-2xl shadow-slate-200/50 backdrop-blur-xl transition-colors duration-300 dark:border-slate-700/60 dark:bg-slate-900/60 dark:shadow-none">
+            <!-- Animated gradient orbs -->
+            <div class="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-amber-400/20 blur-3xl dark:bg-amber-400/10"></div>
+            <div class="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-cyan-400/20 blur-3xl dark:bg-cyan-400/10"></div>
+            
+            <div class="relative px-8 py-12 sm:px-12 sm:py-16">
+                <div class="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
+                    <div class="max-w-2xl">
+                        <!-- Premium Badge -->
+                        <div class="inline-flex items-center gap-2.5 rounded-full border border-amber-200/60 bg-amber-50/80 px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-amber-600 shadow-sm backdrop-blur-md dark:border-amber-900/50 dark:bg-amber-900/20 dark:text-amber-400">
+                            <span class="relative flex h-2 w-2">
+                              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+                              <span class="relative inline-flex h-2 w-2 rounded-full bg-amber-500"></span>
+                            </span>
+                            Bibliotheque gacha
+                        </div>
+                        
+                        <h1 class="mt-6 text-4xl font-black tracking-tight text-slate-900 transition-colors duration-300 dark:text-white sm:text-6xl lg:leading-tight">
+                            Explorez l'univers<br/>
+                            <span class="bg-linear-to-r from-amber-500 to-orange-600 bg-clip-text text-transparent dark:from-amber-400 dark:to-orange-500">One Piece</span>
                         </h1>
-                        <p class="mt-4 max-w-3xl text-base leading-relaxed text-slate-600 transition-colors duration-300 dark:text-slate-100 sm:text-lg">
+                        
+                        <p class="mt-6 text-lg leading-relaxed text-slate-600 transition-colors duration-300 dark:text-slate-300">
                             Parcours l'equipage complet, trie par rarete ou statistiques, et retrouve un personnage avec une recherche directe sur son nom.
                         </p>
                     </div>
 
-                    <div class="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                        <div class="rounded-2xl border border-slate-200 bg-white/80 p-4 text-center backdrop-blur transition-colors duration-300 dark:border-slate-700 dark:bg-slate-950/60">
-                            <div class="text-3xl font-black text-slate-900 transition-colors duration-300 dark:text-white">{{ $characters->total() }}</div>
-                            <div class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-slate-500 transition-colors duration-300 dark:text-slate-300">Personnages</div>
+                    <div class="grid grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-1 lg:w-56">
+                        <div class="group relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white/60 p-5 text-center shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-amber-500/10 dark:border-slate-700/60 dark:bg-slate-950/40">
+                            <div class="absolute inset-0 bg-linear-to-br from-amber-500/0 to-orange-500/0 transition-colors duration-300 group-hover:from-amber-500/5 group-hover:to-orange-500/5"></div>
+                            <div class="relative text-3xl font-black text-slate-900 transition-colors duration-300 dark:text-white">{{ $characters->total() }}</div>
+                            <div class="relative mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 transition-colors duration-300 dark:text-slate-400">Personnages</div>
                         </div>
-                        <div class="rounded-2xl border border-slate-200 bg-white/80 p-4 text-center backdrop-blur transition-colors duration-300 dark:border-slate-700 dark:bg-slate-950/60">
-                            <div class="text-3xl font-black text-slate-900 transition-colors duration-300 dark:text-white">{{ $characters->lastPage() }}</div>
-                            <div class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-slate-500 transition-colors duration-300 dark:text-slate-300">Pages</div>
+                        <div class="group relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white/60 p-5 text-center shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-cyan-500/10 dark:border-slate-700/60 dark:bg-slate-950/40">
+                            <div class="absolute inset-0 bg-linear-to-br from-cyan-500/0 to-blue-500/0 transition-colors duration-300 group-hover:from-cyan-500/5 group-hover:to-blue-500/5"></div>
+                            <div class="relative text-3xl font-black text-slate-900 transition-colors duration-300 dark:text-white">{{ $characters->lastPage() }}</div>
+                            <div class="relative mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 transition-colors duration-300 dark:text-slate-400">Pages</div>
                         </div>
-                        <div class="rounded-2xl border border-slate-200 bg-white/80 p-4 text-center backdrop-blur transition-colors duration-300 dark:border-slate-700 dark:bg-slate-950/60">
-                            <div class="text-3xl font-black text-slate-900 transition-colors duration-300 dark:text-white">{{ $characters->count() }}</div>
-                            <div class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-slate-500 transition-colors duration-300 dark:text-slate-300">Sur cette page</div>
+                        <div class="group relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white/60 p-5 text-center shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-emerald-500/10 dark:border-slate-700/60 dark:bg-slate-950/40">
+                            <div class="absolute inset-0 bg-linear-to-br from-emerald-500/0 to-teal-500/0 transition-colors duration-300 group-hover:from-emerald-500/5 group-hover:to-teal-500/5"></div>
+                            <div class="relative text-3xl font-black text-slate-900 transition-colors duration-300 dark:text-white">{{ $characters->count() }}</div>
+                            <div class="relative mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 transition-colors duration-300 dark:text-slate-400">Sur cette page</div>
                         </div>
                     </div>
                 </div>
